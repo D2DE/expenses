@@ -1,26 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('expenseForm');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission from reloading the page
+    const expenseForm = document.getElementById('expenseForm');
+    const incomeForm = document.getElementById('incomeForm');
 
-        // Retrieve the input values from the form
-        const date = document.getElementById('date').value;
-        const item = document.getElementById('item').value;
-        const amount = parseFloat(document.getElementById('amount').value).toFixed(2); // Format the amount to two decimal places
+    if (expenseForm) {
+        expenseForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            addEntryToTable('expensesTable', ['date', 'item', 'amount']);
+            expenseForm.reset();
+        });
+    }
 
-        // Insert the new expense into the table
-        const table = document.getElementById('expensesTable').getElementsByTagName('tbody')[0];
-        const newRow = table.insertRow(); // Create a new row
-        const cell1 = newRow.insertCell(0); // Create a new cell for the date
-        const cell2 = newRow.insertCell(1); // Create a new cell for the item
-        const cell3 = newRow.insertCell(2); // Create a new cell for the amount
+    if (incomeForm) {
+        incomeForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            addEntryToTable('incomeTable', ['date', 'source', 'amount']);
+            incomeForm.reset();
+        });
+    }
 
-        // Assign the values to the cells
-        cell1.textContent = date;
-        cell2.textContent = item;
-        cell3.textContent = `$${amount}`;
-
-        // Reset the form for new input
-        form.reset();
-    });
+    function addEntryToTable(tableId, fieldIds) {
+        const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+        fieldIds.forEach(function(fieldId) {
+            const value = document.getElementById(fieldId).value;
+            const cell = newRow.insertCell();
+            cell.textContent = value;
+        });
+    }
 });
