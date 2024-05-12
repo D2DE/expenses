@@ -8,7 +8,7 @@ body {
 
 /* Container for content centering and padding */
 .container {
-    width: 80%;
+    width: 90%; /* Adjusted for better mobile responsiveness */
     margin: auto;
     background-color: white;
     padding: 20px;
@@ -58,6 +58,8 @@ input[type="date"] {
     margin-right: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    width: 100%; /* Ensures input fields take up full width */
+    box-sizing: border-box; /* Ensures padding and border are included in width */
 }
 
 button {
@@ -67,6 +69,9 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%; /* Ensures buttons take up full width */
+    box-sizing: border-box; /* Ensures padding and border are included in width */
+    margin-top: 10px; /* Adds spacing between buttons */
 }
 
 button:hover {
@@ -89,4 +94,19 @@ th, td {
 th {
     background-color: #4CAF50;
     color: white;
+}
+
+/* Media queries for mobile responsiveness */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 100%; /* Adjust container width for smaller screens */
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    button {
+        margin-top: 5px; /* Reduce margin between input fields and buttons */
+    }
 }
