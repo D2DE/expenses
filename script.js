@@ -1,12 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getDatabase } from "firebase/database";
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
-
 document.addEventListener('DOMContentLoaded', function() {
     const firebaseConfig = {
-        apiKey: "AIzaSyDtgSfrxjEzlXan_Z2pNjxpNQFYnqJIpyY",
+       apiKey: "AIzaSyDtgSfrxjEzlXan_Z2pNjxpNQFYnqJIpyY",
         authDomain: "day-to-day-expenditure-3df6f.firebaseapp.com",
         projectId: "day-to-day-expenditure-3df6f",
         storageBucket: "day-to-day-expenditure-3df6f.appspot.com",
@@ -15,27 +9,26 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
 
-    const provider = new GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     const loginButton = document.getElementById('loginButton');
 
     loginButton.addEventListener('click', function() {
-        signInWithPopup(auth, provider)
+        firebase.auth().signInWithPopup(provider)
         .then((result) => {
-            // Google Access Token. You can use it to access the Google API.
-            const token = result.credential.accessToken;
-            // The signed-in user info.
+            // Handle the result.
             const user = result.user;
             console.log('User signed in: ', user.displayName);
         }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error('Sign in error', errorCode, errorMessage);
+            console.error('Sign in error', error.code, error.message);
         });
     });
+
+    // Rest of your script for expenses...
+});
 
     const expenseForm = document.getElementById('expenseForm');
 
