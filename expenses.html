@@ -34,6 +34,22 @@
                 <!-- Expense entries will be added here -->
             </tbody>
         </table>
+        function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // This example assumes you want to capture a table.
+    // You might need to adjust selectors and content depending on your specific needs.
+    doc.text('Expenses Report', 14, 16);
+    doc.autoTable({
+        html: '#expensesTable',
+        startY: 20,
+        theme: 'striped',
+        tableWidth: 'auto'
+    });
+
+    doc.save('expenses-report.pdf');
+}
         <button onclick="generatePDF()">Save as PDF</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
