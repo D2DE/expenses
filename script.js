@@ -21,6 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
         amountCell.textContent = amount;
     }
 
+    function generatePDF() {
+        // Placeholder for generating PDF
+        alert('Generating PDF...');
+    }
+
+    function generateExcel() {
+        // Placeholder for generating Excel
+        alert('Generating Excel...');
+    }
+
     if (expenseForm) {
         expenseForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -29,6 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const amount = expenseForm.elements.amount.value;
             addExpenseToTable(date, item, amount);
             expenseForm.reset();
+        });
+    }
+
+    const saveExpensesPdfButton = document.getElementById('saveExpensesPdf');
+    if (saveExpensesPdfButton) {
+        saveExpensesPdfButton.addEventListener('click', function() {
+            generatePDF();
+        });
+    }
+
+    const saveExpensesExcelButton = document.getElementById('saveExpensesExcel');
+    if (saveExpensesExcelButton) {
+        saveExpensesExcelButton.addEventListener('click', function() {
+            generateExcel();
         });
     }
 });
