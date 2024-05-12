@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function formatDate(dateString) {
         const date = new Date(dateString);
-        const day = ('0' + date.getDate()).slice(-2); // Add leading zero and slice last two digits
-        const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-indexed, add leading zero
+        const day = ('0' + date.getDate()).slice(-2);  // Ensures two digits
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);  // Corrects zero-indexed month
         const year = date.getFullYear();
-        return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
+        return `${day}-${month}-${year}`;  // Returns date in DD-MM-YYYY format
     }
 
     function addEntryToTable(tableId, fieldIds) {
@@ -15,27 +15,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const newRow = table.insertRow();
         fieldIds.forEach(function(fieldId) {
             let value = document.getElementById(fieldId).value;
-            if (fieldId === 'date') { // Check if the field is a date
-                value = formatDate(value); // Format the date
+            if (fieldId === 'date') {  // Formats date if the field is a date
+                value = formatDate(value);
             }
             const cell = newRow.insertCell();
             cell.textContent = value;
         });
     }
 
-    function generatePDF() {
+    function generatePDF(tableId, reportTitle, fileName) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.text('Expenses Report', 14, 16);
+        doc.text(reportTitle, 14, 16);
         doc.autoTable({
-            html: '#expensesTable',
+            html: `#${tableId}`,
             startY: 20,
             theme: 'striped',
             tableWidth: 'auto'
         });
 
-        doc.save('expenses-report.pdf');
+        doc.save(fileName);
     }
 
     if (expenseForm) {
@@ -44,6 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
             addEntryToTable('expensesTable', ['date', 'item', 'amount']);
             expenseForm.reset();
         });
+        document.getElementById('saveExpensesPdf').addEventListener('click', function() {
+            generatePDF('expensesTable', 'Expenses Report', 'expenses-report.pdf');
+        });
     }
 
     if (incomeForm) {
@@ -51,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             addEntryToTable('incomeTable', ['date', 'source', 'amount']);
             incomeForm.reset();
+        });
+        document.getElementById('saveIncomePdf').addEventListener('click', function() {
+            generatePDF('incomeTable', 'Income Report', 'income-report.pdf');
         });
     }
 });
