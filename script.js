@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Your Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyDtgSfrxjEzlXan_Z2pNjxpNQFYnqJIpyY",
+  apiKey: "AIzaSyDtgSfrxjEzlXan_Z2pNjxpNQFYnqJIpyY",
   authDomain: "day-to-day-expenditure-3df6f.firebaseapp.com",
   projectId: "day-to-day-expenditure-3df6f",
   storageBucket: "day-to-day-expenditure-3df6f.appspot.com",
