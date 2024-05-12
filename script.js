@@ -59,4 +59,20 @@ document.addEventListener('DOMContentLoaded', function() {
             generatePDF('incomeTable', 'Income Report', 'income-report.pdf');
         });
     }
+
+    // Add event listener for "Save as PDF" button in expenses.html
+    const saveExpensesPdfButton = document.getElementById('saveExpensesPdf');
+    if (saveExpensesPdfButton) {
+        saveExpensesPdfButton.addEventListener('click', function() {
+            generatePDF('expensesTable', 'Expenses Report', 'expenses-report.pdf');
+        });
+    }
+
+    // Add event listener for "Save as PDF" button in income.html
+    const saveIncomePdfButton = document.getElementById('saveIncomePdf');
+    if (saveIncomePdfButton) {
+        saveIncomePdfButton.addEventListener('click', function() {
+            generatePDF('incomeTable', 'Income Report', 'income-report.pdf');
+        });
+    }
 });
