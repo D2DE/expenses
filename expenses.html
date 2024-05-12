@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expenses Tracker</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
@@ -15,12 +14,12 @@
     <div class="container">
         <h1>Expenses Tracker</h1>
         <form id="expenseForm">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
-            <label for="item">Item:</label>
-            <input type="text" id="item" name="item" required>
-            <label for="amount">Amount (₹):</label>
-            <input type="number" id="amount" name="amount" step="0.01" required>
+            <label for="expenseDate">Date:</label>
+            <input type="date" id="expenseDate" name="date" required>
+            <label for="expenseItem">Item:</label>
+            <input type="text" id="expenseItem" name="item" required>
+            <label for="expenseAmount">Amount (₹):</label>
+            <input type="number" id="expenseAmount" name="amount" step="0.01" required>
             <button type="submit">Add Expense</button>
         </form>
 
@@ -40,7 +39,6 @@
         <button id="saveExpensesExcel">Save as Excel</button>
     </div>
     
-    <!-- Include the jsPDF and jsPDF-AutoTable library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </body>
