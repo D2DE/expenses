@@ -1,27 +1,50 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const expenseForm = document.getElementById('expenseForm');
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getDatabase } from "firebase/database";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
-    // Your Firebase configuration
+document.addEventListener('DOMContentLoaded', function() {
     const firebaseConfig = {
-  apiKey: "AIzaSyDtgSfrxjEzlXan_Z2pNjxpNQFYnqJIpyY",
-  authDomain: "day-to-day-expenditure-3df6f.firebaseapp.com",
-  projectId: "day-to-day-expenditure-3df6f",
-  storageBucket: "day-to-day-expenditure-3df6f.appspot.com",
-  messagingSenderId: "1064548864669",
-  appId: "1:1064548864669:web:3c4cc94c5d3388523d3a74"
+        apiKey: "AIzaSyDtgSfrxjEzlXan_Z2pNjxpNQFYnqJIpyY",
+        authDomain: "day-to-day-expenditure-3df6f.firebaseapp.com",
+        projectId: "day-to-day-expenditure-3df6f",
+        storageBucket: "day-to-day-expenditure-3df6f.appspot.com",
+        messagingSenderId: "1064548864669",
+        appId: "1:1064548864669:web:3c4cc94c5d3388523d3a74"
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-    const db = firebase.database();
+    const provider = new GoogleAuthProvider();
+    const loginButton = document.getElementById('loginButton');
+
+    loginButton.addEventListener('click', function() {
+        signInWithPopup(auth, provider)
+        .then((result) => {
+            // Google Access Token. You can use it to access the Google API.
+            const token = result.credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            console.log('User signed in: ', user.displayName);
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Sign in error', errorCode, errorMessage);
+        });
+    });
+
+    const expenseForm = document.getElementById('expenseForm');
 
     function formatDate(dateString) {
         const date = new Date(dateString);
-        const day = ('0' + date.getDate()).slice(-2); // Add leading zero and slice last two digits
-        const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-indexed, add leading zero
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
         const year = date.getFullYear();
-        return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
+        return `${day}-${month}-${year}`;
     }
 
     function addEntryToTable(tableId, fieldIds) {
@@ -30,22 +53,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const entry = {};
         fieldIds.forEach(function(fieldId) {
             let value = document.getElementById(fieldId).value;
-            if (fieldId === 'date') { // Check if the field is a date
-                value = formatDate(value); // Format the date
+            if (fieldId === 'date') {
+                value = formatDate(value);
             }
             const cell = newRow.insertCell();
             cell.textContent = value;
             entry[fieldId] = value;
         });
-        // Add the entry to Firebase database
         db.ref(tableId).push(entry);
     }
 
     function generatePDF(tableId, reportTitle, fileName) {
-        const doc = new jsPDF(); // Directly use jsPDF
+        const doc = new jsPDF();
         doc.text(reportTitle, 14, 16);
-        doc.autoTable({
-            html: `#${tableId}`, // Select table by ID
+        autoTable(doc, {
+            html: `#${tableId}`,
             startY: 20,
             theme: 'striped',
             tableWidth: 'auto'
@@ -54,8 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function generateExcel() {
-        // Logic for generating Excel file
-        // This feature is not implemented yet
         alert("Save as Excel feature coming soon!");
     }
 
