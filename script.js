@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     const expenseForm = document.getElementById('expenseForm');
-    const incomeForm = document.getElementById('incomeForm');
 
     function formatDate(dateString) {
         const date = new Date(dateString);
-        const day = ('0' + date.getDate()).slice(-2);
-        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2); // Add leading zero and slice last two digits
+        const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-indexed, add leading zero
         const year = date.getFullYear();
-        return `${day}-${month}-${year}`;
+        return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
     }
 
     function addEntryToTable(tableId, fieldIds) {
@@ -15,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const newRow = table.insertRow();
         fieldIds.forEach(function(fieldId) {
             let value = document.getElementById(fieldId).value;
-            if (fieldId === 'date') {
-                value = formatDate(value);
+            if (fieldId === 'date') { // Check if the field is a date
+                value = formatDate(value); // Format the date
             }
             const cell = newRow.insertCell();
             cell.textContent = value;
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.save(fileName);
     }
 
-    function generateExcel(tableId, fileName) {
+    function generateExcel() {
         // Logic for generating Excel file
         // This feature is not implemented yet
         alert("Save as Excel feature coming soon!");
@@ -50,25 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
             addEntryToTable('expensesTable', ['date', 'item', 'amount']);
             expenseForm.reset();
         });
+
         document.getElementById('saveExpensesPdf').addEventListener('click', function() {
             generatePDF('expensesTable', 'Expenses Report', 'expenses-report.pdf');
         });
-        document.getElementById('saveExpensesExcel').addEventListener('click', function() {
-            generateExcel('expensesTable', 'expenses-report.xlsx');
-        });
-    }
 
-    if (incomeForm) {
-        incomeForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            addEntryToTable('incomeTable', ['date', 'source', 'amount']);
-            incomeForm.reset();
-        });
-        document.getElementById('saveIncomePdf').addEventListener('click', function() {
-            generatePDF('incomeTable', 'Income Report', 'income-report.pdf');
-        });
-        document.getElementById('saveIncomeExcel').addEventListener('click', function() {
-            generateExcel('incomeTable', 'income-report.xlsx');
+        document.getElementById('saveExpensesExcel').addEventListener('click', function() {
+            generateExcel();
         });
     }
 });
