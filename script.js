@@ -80,7 +80,27 @@ function readUserData(userId) {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 }
+<script>
+  // Assuming Firebase is already initialized above this script
 
+  document.getElementById('loginButton').addEventListener('click', function() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // You can save the user data here or do some actions
+      alert("Logged in as: " + user.displayName);
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // You could also implement error handling
+      alert("Failed to login: " + errorMessage);
+    });
+  });
+</script>
     if (expenseForm) {
         expenseForm.addEventListener('submit', function(event) {
             event.preventDefault();
