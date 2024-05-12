@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
             let value = document.getElementById(fieldId).value;
             if (fieldId === 'date') {  // Formats date if the field is a date
                 value = formatDate(value);
+            } else if (fieldId === 'amount') { // Add ₹ symbol next to amount
+                value = '₹' + value;
             }
             const cell = newRow.insertCell();
             cell.textContent = value;
