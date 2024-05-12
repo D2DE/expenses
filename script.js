@@ -1,31 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to generate Excel file
-    function generateExcel(tableId, fileName) {
-        const table = document.getElementById(tableId);
-        const rows = table.querySelectorAll('tr');
-        const csvData = [];
+    const expenseForm = document.getElementById('expenseForm');
+    const expensesTable = document.getElementById('expensesTable');
 
-        rows.forEach(function(row) {
-            const rowData = [];
-            row.querySelectorAll('td').forEach(function(cell) {
-                rowData.push(cell.textContent.trim());
-            });
-            csvData.push(rowData.join(','));
-        });
-
-        const csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', fileName + '.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link); // Clean up the dynamically created link element
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = ('0' + date.getDate()).slice(-2);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
     }
 
-    // Add event listener for "Save as Excel" button
-    const saveAsExcelButton = document.getElementById('saveExpensesExcel');
-    saveAsExcelButton.addEventListener('click', function() {
-        generateExcel('expensesTable', 'expenses_report'); // Update tableId and fileName accordingly
-    });
+    function addExpenseToTable(date, item, amount) {
+        const newRow = expensesTable.insertRow();
+        const dateCell = newRow.insertCell();
+        const itemCell = newRow.insertCell();
+        const amountCell = newRow.insertCell();
+
+        dateCell.textContent = formatDate(date);
+        itemCell.textContent = item;
+        amountCell.textContent = amount;
+    }
+
+    if (expenseForm) {
+        expenseForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const date = expenseForm.elements.date.value;
+            const item = expenseForm.elements.item.value;
+            const amount = expenseForm.elements.amount.value;
+            addExpenseToTable(date, item, amount);
+            expenseForm.reset();
+        });
+    }
 });
