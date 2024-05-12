@@ -18,6 +18,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (fieldId === 'date') { // Check if the field is a date
                 value = formatDate(value); // Format the date
             }
+    function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text('Expenses Report', 14, 16);
+    doc.autoTable({
+        html: '#expensesTable',
+        startY: 20,
+        theme: 'striped',
+        tableWidth: 'auto'
+    });
+
+    doc.save('expenses-report.pdf');
+}
             const cell = newRow.insertCell();
             cell.textContent = value;
         });
