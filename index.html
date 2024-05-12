@@ -6,6 +6,27 @@
     <title>Day-to-Day Financial Tracker</title>
     <link rel="stylesheet" href="style.css">
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDtgSfrxjEzlXan_Z2pNjxpNQFYnqJIpyY",
+    authDomain: "day-to-day-expenditure-3df6f.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+    projectId: "day-to-day-expenditure-3df6f",
+    storageBucket: "day-to-day-expenditure-3df6f.appspot.com",
+    messagingSenderId: "1064548864669",
+    appId: "1:1064548864669:web:3c4cc94c5d3388523d3a74"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 </head>
 <body>
     <div class="container">
