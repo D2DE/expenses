@@ -37,6 +37,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // ...
   });
 }
+    function writeUserData(userId, transaction) {
+  firebase.database().ref('users/' + userId + '/transactions').push().set({
+    transactionData: transaction
+  });
+}
+
+function readUserData(userId) {
+  var transactionsRef = firebase.database().ref('users/' + userId + '/transactions');
+  transactionsRef.on('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
+      // use childData as needed
+    });
+  });
+}
 
     function generatePDF(tableId, reportTitle, fileName) {
         const { jsPDF } = window.jspdf;
