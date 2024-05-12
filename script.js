@@ -38,6 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.save(fileName);
     }
 
+    function generateExcel(tableId, fileName) {
+        // Logic for generating Excel file
+        // This feature is not implemented yet
+        alert("Save as Excel feature coming soon!");
+    }
+
     if (expenseForm) {
         expenseForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -48,8 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             generatePDF('expensesTable', 'Expenses Report', 'expenses-report.pdf');
         });
         document.getElementById('saveExpensesExcel').addEventListener('click', function() {
-            // Functionality for saving expenses as Excel
-            alert("Save expenses as Excel feature coming soon!");
+            generateExcel('expensesTable', 'expenses-report.xlsx');
         });
     }
 
@@ -63,8 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             generatePDF('incomeTable', 'Income Report', 'income-report.pdf');
         });
         document.getElementById('saveIncomeExcel').addEventListener('click', function() {
-            // Functionality for saving income as Excel
-            alert("Save income as Excel feature coming soon!");
+            generateExcel('incomeTable', 'income-report.xlsx');
         });
     }
 });
