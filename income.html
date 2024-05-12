@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Income Tracker</h1>
+        <form id="incomeForm">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source" required>
+
+            <label for="amount">Amount ($):</label>
+            <input type="number" id="amount" name="amount" step="0.01" required>
+
+            <button type="submit">Add Income</button>
+        </form>
+
+        <table id="incomeTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Source</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Income will be added here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
